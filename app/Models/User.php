@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Models;
-
+use App\Commands\SuperAdminRegister;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -17,11 +19,17 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        'username',
+    
+     protected $fillable = [
+        // 'roles',
+        'name',
         'email',
-        'password',
+        'password'
+        
     ];
+
+    //protected $roles = ['superadmin'];
+        
 
     /**
      * The attributes that should be hidden for serialization.
@@ -45,4 +53,23 @@ class User extends Authenticatable
     protected function images(){
         return $this->hasMany(Image::class);
     }
+
+    //creazione superadmin
+    // public static function createSuperAdmin($name, $email, $password)
+    // {
+    //     $user = new User();
+    //     $user->name = $name;
+    //     $user->email = $email;
+    //     $user->password = Hash::make($password);
+    //     $user->roles = ['superadmin'];
+
+    //     $user->save();
+
+    //     return $user;
+    // }
+
+    // public static function superAdminExists()
+    // {
+    //     return DB::table('users')->where('roles', '=', ['superadmin'])->exists();
+    // }
 }
