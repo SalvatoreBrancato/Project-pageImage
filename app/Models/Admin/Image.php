@@ -4,6 +4,9 @@ namespace App\Models\Admin;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Admin\Tag;
+use App\Models\User;
+use App\Models\Admin\Comment;
 
 class Image extends Model
 {
@@ -26,7 +29,7 @@ class Image extends Model
         return $this->hasMany(Comment::class);
     }
 
-    public function tag(){
+    public function tags(){
         return $this->belongsToMany(Tag::class);
     }
 }
