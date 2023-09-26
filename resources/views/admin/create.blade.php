@@ -7,6 +7,9 @@
       <label for="foto" class="form-label">Carica la tua foto</label>
       <input type="file" name="image" class="form-control" id="foto" aria-describedby="emailHelp">
     </div>
+      {{-- @error('image')
+        <div class="alert alert-danger">{{ $message }}</div>
+      @enderror --}}
     <div class="mb-3 col-12">
         <label class="d-block" for="visibility">
            <strong>Vuoi rendere visibile la tua foto?</strong>
@@ -28,14 +31,14 @@
     {{-- <div style="visibility:hidden; color:red; " id="chk_option_error">
       Seleziona almeno un ambito di sviluppo
     </div> --}}
-    <div id="edit-fields" class="form-group mt-3 mb-4">
+    <div id="edit-tags" class="form-group mt-3 mb-4">
         <div class="form-label">
             Tag:
         </div>
-        {{-- @error('fields')
-            <div class="alert alert-danger">{{ $message }}</div>
-        @enderror --}}
         <div class="row">
+          {{-- @error('tag')
+            <div class="alert alert-danger">{{ $message }}</div>
+          @enderror --}}
             @foreach ($tags as $elem)
                 <div class="col-3 col-sm-2 d-flex align-items-center ms-4 mb-3">
                     {{-- checkbox con valori precedenti --}}
@@ -52,6 +55,7 @@
             @endforeach
         </div>
     </div>
+   
 
     {{-- <div class="mb-3 form-check">
       <input type="checkbox" class="form-check-input" id="exampleCheck1">
