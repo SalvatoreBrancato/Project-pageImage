@@ -6,18 +6,37 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Admin\Image;
 use App\Models\Admin\Comment;
+use App\Models\Admin\Tag;
 
 class ImageController extends Controller
 {
     public function index(Request $request)
     {
-       $image = Image::with('tags')->get();
+       $query = Image::with('tags');
+
+       $tag = Tag::all();
+
+       if($request->has('tags_id')){
+        $tags_id = explode(',', $request->tags_id);
+        $query = Image::whereHas('tags', function($prova) use ($tags_id){
+            $prova->whereIn('id', $tags_id);
+        });
+       }
+       if($request->has('num_page')){
+           $image = $query->paginate($request->num_page);
+
+       }else{
+            $image = $query->paginate(2);
+       }
        return response()->json(
         [
             'success' => true,
-            'image' => $image
+            'image' => $image,
+            'tag' => $tag
         ]
         );
+
+        
     }  
     
     public function show($id){
