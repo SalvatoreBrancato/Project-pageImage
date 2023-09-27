@@ -55,22 +55,12 @@ class ImageController extends Controller
     //         'visibility'=>'required'
     //     ]);
         
-        $form_data = $request->all();
+        $form_data = $request->all();//validate da provare
         $new_image = new Image();
-        //$new_tag = new Tag();
-        //$current_image = Image::find($id); 
-
-       //$new_image->user_id = Auth::id();
-
-        // if($request->has('visibility')){
-        //     $form_data['visibility'] = 1;
-        //     dd('suca');
-        // }else {
-        //     $form_data['visibility'] = 0;
-        // }
+        $new_image->user_id = Auth::id();
 
         if($request->has('visibility')){
-            if($request->has('visibilty') == 1){
+            if($request->visibilty == 1){
                 $form_data['visibility'] = 1;
             }else{
                 $form_data['visibility'] = 0;

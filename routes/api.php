@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\ImageController;
+use App\Http\Controllers\Api\CommentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,3 +21,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 route::get('/image',[ImageController::class, 'index']);
+route::get('/image/{id}',[ImageController::class, 'show']);
+route::post('/comments',[CommentController::class, 'store']);
+
+
