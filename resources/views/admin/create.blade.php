@@ -27,10 +27,6 @@
             </label>
         </div>
     </div>
-
-    {{-- <div style="visibility:hidden; color:red; " id="chk_option_error">
-      Seleziona almeno un ambito di sviluppo
-    </div> --}}
     <div id="edit-tags" class="form-group mt-3 mb-4">
         <div class="form-label">
             Tag:
@@ -40,27 +36,13 @@
             <div class="alert alert-danger">{{ $message }}</div>
           @enderror --}}
             @foreach ($tags as $elem)
-                <div class="col-3 col-sm-2 d-flex align-items-center ms-4 mb-3">
-                    {{-- checkbox con valori precedenti --}}
-                    
-                        <input class="tags-checks" type="checkbox" id="check-tag-{{$elem->tag}}" value="{{$elem->id}}" name="tags[]"> 
-                   
-                       {{-- <input type="hidden" name="image_id[]" value="{{$images->id}}"> --}}
-                    
-
-                    <label for="check-tag-{{$elem->tag}}" class="text-capitalize ms-1">
-                        {{$elem->tag}}
-                    </label>
+                <div class="col-3 col-sm-2 d-flex align-items-center ms-4 mb-3">                    
+                  <input class="tags-checks" type="checkbox" id="check-tag-{{$elem->tag}}" value="{{$elem->id}}" name="tags[]"> 
+                  <label for="check-tag-{{$elem->tag}}" class="text-capitalize ms-1">{{$elem->tag}}</label>
                 </div>
             @endforeach
         </div>
     </div>
-   
-
-    {{-- <div class="mb-3 form-check">
-      <input type="checkbox" class="form-check-input" id="exampleCheck1">
-      <label class="form-check-label" for="exampleCheck1">Check me out</label>
-    </div> --}}
     <button type="submit" class="btn btn-primary">Submit</button>
   </form>
     

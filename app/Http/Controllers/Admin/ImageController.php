@@ -23,7 +23,38 @@ class ImageController extends Controller
      */
     public function index()
     {
+        // $user_id = Auth::id();
+        // $profile = Profile::where('user_id', $user_id)->first();
+
+        // //Verica se l'utente è registrato e ha un profilo developer
+        // if (Profile::where('user_id', $user_id)->exists()) {
+
+        //     // richiamo lo user interessato
+        //     $user = User::find($user_id);
+        //     // Accedo ai fields collegati a questo Utente tramite la relazione definita nel modello
+        //     $fields = $user->fields;
+        //     // Accedo alle techs collegate a questo Profilo tramite la relazione definita nel modello
+        //     $technologies = $profile->technologies;
+
+        //     // dd($technologies);
+
+        //     return view('admin.profile.index', compact('profile', 'user', 'fields', 'technologies'));
+        
+        // $user_id = Auth::id();
+        // $user = Image::where('user_id', $user_id)->first();
+        // $images = $user->image;
+        
+        //dd($user);
+        // if(Image::where('user_id', $user_id)->exists()){
+        //      $user = User::find($user_id);
+        //      dd($user);
+        //     $images = $user->image;
+        //      //dd($images);
+        // }   
+
+
         $images = Image::all();
+        //dd($images);
         $tags = Tag::all();
 
         return view('admin.index', compact('images', 'tags'));
@@ -136,10 +167,11 @@ class ImageController extends Controller
        if($request->has('visibility')){
 
             if ($request->input('visibility') == 1 ) {
-
+                //dd('1');
                 $form_data['visibility'] = 1;
             } else {
                 $form_data['visibility'] = 0;
+                //dd('0');
             }
         }
 
