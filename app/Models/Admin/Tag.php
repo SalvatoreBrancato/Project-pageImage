@@ -17,7 +17,7 @@ class Tag extends Model
         
     ];
     
-    //metodo image crea l'appartenenza tramite model Image
+    
     public function images(){
         return $this->belongsToMany(Image::class);
     }

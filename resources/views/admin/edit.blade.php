@@ -1,8 +1,6 @@
 @extends('layouts.app')
 @section('content')
 
-
-    <h1>sono la edit</h1>
     <form action="{{route('admin.update', $image['id'])}}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
@@ -39,12 +37,8 @@
             <div class="row">
                 @foreach ($tags as $elem)
                     <div class="col-3 col-sm-2 d-flex align-items-center ms-4 mb-3">
-                        {{-- checkbox con valori precedenti --}}
-                        
-                            <input class="tags-checks" type="checkbox" id="check-tag-{{$elem->tag}}" value="{{$elem->id}}" name="tags[]"> 
-                       
-                           {{-- <input type="hidden" name="image_id[]" value="{{$images->id}}"> --}}
-                        
+
+                            <input class="tags-checks" type="checkbox" id="check-tag-{{$elem->tag}}" value="{{$elem->id}}" name="tags[]">                        
     
                         <label for="check-tag-{{$elem->tag}}" class="text-capitalize ms-1">
                             {{$elem->tag}}
@@ -53,10 +47,6 @@
                 @endforeach
             </div>
         </div>
-        {{-- <div class="mb-3 form-check">
-          <input type="checkbox" class="form-check-input" id="exampleCheck1">
-          <label class="form-check-label" for="exampleCheck1">Check me out</label>
-        </div> --}}
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
 

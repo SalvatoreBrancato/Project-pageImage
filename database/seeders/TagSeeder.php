@@ -34,7 +34,7 @@ class TagSeeder extends Seeder
 
             $new_tag->tag = $elem['tag'];
 
-            //$new_tag->slug = Str::slug($new_tag->tag);
+            
 
             $new_tag->save();
         }

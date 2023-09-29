@@ -32,6 +32,7 @@ class ImageController extends Controller
         }else{
 
             $userImages = Image::where('user_id', $user_id)->get();
+            
         }
         
 
@@ -88,9 +89,7 @@ class ImageController extends Controller
 
         
         if ($request->has('tags')) {
-            // $new_tag = new Tag();
-            // dd($new_tag); 
-            //$new_tag->images()->sync($request->image_id);
+            
             $new_image->tags()->sync($form_data['tags']);
         }
 
@@ -105,8 +104,9 @@ class ImageController extends Controller
      */
     public function show($id)
     {
+        $user_id = Auth::id();
         $image = Image::find($id);
-        return view('admin.show', compact('image'));
+        return view('admin.show', compact('image', 'user_id'));
     }
 
     /**
@@ -141,7 +141,7 @@ class ImageController extends Controller
 
         //$image->user_id = Auth::id();
 
-       //condizione per passare true o false come numeri poiché mysql accetta per valori boolean 0 e 1 e non stringhe
+       //condizione per passare true o false come int poiché mysql accetta per valori boolean 0 e 1 e non stringhe
        if($image->visibility == 1){
 
             if ($request->input('visibility') == 1 ) {
