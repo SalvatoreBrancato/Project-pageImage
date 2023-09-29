@@ -1,26 +1,21 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <h2 class="fs-4 text-secondary my-4">
-        {{ __('Dashboard') }}
-    </h2>
-    <div class="row justify-content-center">
-        <div class="col">
-            <div class="card">
-                <div class="card-header">{{ __('User Dashboard') }}</div>
 
-                <div class="card-body">
-                    @if (session('status'))
-                    <div class="alert alert-success" role="alert">
-                        {{ session('status') }}
-                    </div>
-                    @endif
+<h1>sono la dashboard</h1>
+@foreach ($images as $elem)
+    
+    @foreach ($elem->tag as $item)
+        <div>{{$item->tag}}</div>
+    @endforeach
 
-                    {{ __('You are logged in!') }}
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+    @foreach ($elem->comment as $item)
+        <div>{{$item->comment}}</div>
+    @endforeach
+
+    @foreach ($elem->user as $item)
+        <div>{{$item->name}}</div>
+    @endforeach
+    
+@endforeach
 @endsection

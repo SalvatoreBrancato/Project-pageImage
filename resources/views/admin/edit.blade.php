@@ -10,6 +10,7 @@
           <label for="foto" class="form-label">Carica la tua foto</label>
           <input type="file" name="image" class="form-control" id="foto" aria-describedby="emailHelp">
         </div>
+        @if($user_id == 1)
         <div class="mb-3 col-12">
             <label class="d-block" for="visibility">
                <strong>Vuoi rendere visibile la tua foto?</strong>
@@ -27,6 +28,7 @@
                 </label>
             </div>
         </div>
+        @endif
         <div id="edit-fields" class="form-group mt-3 mb-4">
             <div class="form-label">
                 Tag:

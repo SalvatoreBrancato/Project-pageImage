@@ -22,42 +22,22 @@ class ImageController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        // $user_id = Auth::id();
-        // $profile = Profile::where('user_id', $user_id)->first();
+    {        
+        $user = Auth::user();
 
-        // //Verica se l'utente è registrato e ha un profilo developer
-        // if (Profile::where('user_id', $user_id)->exists()) {
+        $user_id = Auth::id();
 
-        //     // richiamo lo user interessato
-        //     $user = User::find($user_id);
-        //     // Accedo ai fields collegati a questo Utente tramite la relazione definita nel modello
-        //     $fields = $user->fields;
-        //     // Accedo alle techs collegate a questo Profilo tramite la relazione definita nel modello
-        //     $technologies = $profile->technologies;
+        if($user_id === 1){
+            $userImages = Image::all();
+        }else{
 
-        //     // dd($technologies);
-
-        //     return view('admin.profile.index', compact('profile', 'user', 'fields', 'technologies'));
+            $userImages = Image::where('user_id', $user_id)->get();
+        }
         
-        // $user_id = Auth::id();
-        // $user = Image::where('user_id', $user_id)->first();
-        // $images = $user->image;
-        
-        //dd($user);
-        // if(Image::where('user_id', $user_id)->exists()){
-        //      $user = User::find($user_id);
-        //      dd($user);
-        //     $images = $user->image;
-        //      //dd($images);
-        // }   
 
-
-        $images = Image::all();
-        //dd($images);
         $tags = Tag::all();
 
-        return view('admin.index', compact('images', 'tags'));
+        return view('admin.index', compact( 'user', 'user_id', 'userImages', 'tags'));
     }
 
     /**
@@ -67,10 +47,11 @@ class ImageController extends Controller
      */
     public function create()
     {
+        $user_id = Auth::id(); 
         $tags = Tag::all();
         $images = Image::all();
         
-        return view('admin.create', compact('tags', 'images'));
+        return view('admin.create', compact('user_id', 'tags', 'images'));
     }
 
     /**
@@ -90,13 +71,8 @@ class ImageController extends Controller
         $new_image = new Image();
         $new_image->user_id = Auth::id();
 
-        if($request->has('visibility')){
-            if($request->visibilty == 1){
-                $form_data['visibility'] = 1;
-            }else{
-                $form_data['visibility'] = 0;
-            }
-        }
+        // nella creazione di defalut la visibilà 1
+        $form_data['visibility'] = 1;
 
         if ($request->hasFile('image')) {
             $path = Storage::disk('public')->put('img', $request->image);
@@ -141,9 +117,10 @@ class ImageController extends Controller
      */
     public function edit($id)
     {
+        $user_id = Auth::id();
         $tags = Tag::all();
         $image = Image::find($id);
-        return view('admin.edit', compact('image','tags'));
+        return view('admin.edit', compact('user_id','image','tags'));
     }
 
     /**
@@ -155,6 +132,7 @@ class ImageController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $user_id = Auth::id();
         $image = Image::find($id);
         $new_image = new Image();
 
@@ -164,7 +142,7 @@ class ImageController extends Controller
         //$image->user_id = Auth::id();
 
        //condizione per passare true o false come numeri poiché mysql accetta per valori boolean 0 e 1 e non stringhe
-       if($request->has('visibility')){
+       if($image->visibility == 1){
 
             if ($request->input('visibility') == 1 ) {
                 //dd('1');
@@ -173,6 +151,17 @@ class ImageController extends Controller
                 $form_data['visibility'] = 0;
                 //dd('0');
             }
+        }elseif($user_id == 1 && $image->visibility == 0){
+            
+            if ($request->input('visibility') == 1 ) {
+                //dd('1');
+                $form_data['visibility'] = 1;
+            } else {
+                $form_data['visibility'] = 0;
+                //dd('0');
+            }
+        }else{
+            $form_data['visibility'] = 1;
         }
 
         if ($request->hasfile('image')) {

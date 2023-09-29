@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row">
             <div class=" d-flex flex-wrap">
-                @foreach ($images as $elem)
+                @foreach ($userImages as $elem)
                 <div class="d-flex flex-column">
                     <img style="width: 50%" src="{{asset('storage/'.$elem->image) }}" alt="">
                         

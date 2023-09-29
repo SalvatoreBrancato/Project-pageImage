@@ -12,7 +12,7 @@ class ImageController extends Controller
 {
     public function index(Request $request)
     {
-       $query = Image::with('tags');
+       $query = Image::with('tags')->where('visibility', 1);
 
        $tag = Tag::all();
 
@@ -23,10 +23,11 @@ class ImageController extends Controller
         });
        }
        if($request->has('num_page')){
-           $image = $query->paginate($request->num_page);
+            $convert = intval($request->num_page);
+            $image = $query->paginate($convert);
 
        }else{
-            $image = $query->paginate(2);
+            $image = $query->paginate(3);
        }
        return response()->json(
         [
